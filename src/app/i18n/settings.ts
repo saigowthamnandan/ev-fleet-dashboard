@@ -1,7 +1,7 @@
-export const fallbackLng = "de";
-export const i18nSupportedLanguages = [fallbackLng, "en"];
-export const defaultNS = "translation";
-export const languageCookie = "i18next";
+export const fallbackLng = 'de';
+export const i18nSupportedLanguages = [fallbackLng, 'en'];
+export const defaultNS = 'translation';
+export const languageCookie = 'i18next';
 
 export function getOptions(locale = fallbackLng, ns = defaultNS) {
   return {

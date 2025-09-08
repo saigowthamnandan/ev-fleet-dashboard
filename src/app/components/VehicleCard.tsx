@@ -1,6 +1,5 @@
-import { TFunction } from "i18next";
+import {TFunction} from 'i18next';
 import {
-  Car,
   Battery,
   Gauge,
   Thermometer,
@@ -15,14 +14,13 @@ import {
   RulerDimensionLine,
   Shield,
   CloudCog,
-} from "lucide-react";
-import { MetricStatus, VehicleStatus, VehicleType } from "../utils/enums";
-import { Vehicle } from "../utils/types";
-import { DragEvent } from "react";
-import MetricCard from "./MetricCard";
-import StatusBadge from "./StatusBadge";
-import { get } from "http";
-import SvgIcon from "./SvgIcon";
+} from 'lucide-react';
+import {MetricStatus, VehicleStatus, VehicleType} from '../utils/enums';
+import {Vehicle} from '../utils/types';
+import {DragEvent} from 'react';
+import MetricCard from './MetricCard';
+import StatusBadge from './StatusBadge';
+import SvgIcon from './SvgIcon';
 
 export default function VehicleCard({
   vehicle,
@@ -68,37 +66,22 @@ export default function VehicleCard({
       draggable
       onDragStart={(e) => onDragStart && onDragStart(e)}
       onDragLeave={(e) => onDragEnd && onDragEnd(e)}
-      onDragEnd={(e) => onDrop && onDrop(e)}
-    >
+      onDragEnd={(e) => onDrop && onDrop(e)}>
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-3">
           {vehicle.type === VehicleType.CARGO_MOVER ? (
-            <SvgIcon
-              name="truck"
-              className="h-6 w-6 text-[#53b58a] dark:text-[#0dbe71]"
-              alt="Truck"
-            />
+            <SvgIcon name="truck" className="h-6 w-6 text-[#53b58a] dark:text-[#0dbe71]" alt="Truck" />
           ) : (
-            <SvgIcon
-              name="bus"
-              className="h-6 w-6 text-blue-600 dark:text-blue-500"
-              alt="Bus"
-            />
+            <SvgIcon name="bus" className="h-6 w-6 text-blue-600 dark:text-blue-500" alt="Bus" />
           )}
           <div>
             <h3 className="font-semibold text-gray-900 dark:text-white">
               {vehicle.name}: {vehicle.type}
             </h3>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              {vehicle.id}
-            </p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">{vehicle.id}</p>
           </div>
         </div>
-        <StatusBadge
-          status={vehicle.status}
-          t={t}
-          data-testid="vehicle-status"
-        />
+        <StatusBadge status={vehicle.status} t={t} data-testid="vehicle-status" />
       </div>
 
       <div className="grid grid-cols-2 gap-3 mb-4">
@@ -107,96 +90,68 @@ export default function VehicleCard({
             vehicle.status === VehicleStatus.CHARGING
               ? BatteryCharging
               : getBatteryStatus(vehicle.battery) === MetricStatus.CRITICAL
-              ? BatteryWarning
-              : Battery
+                ? BatteryWarning
+                : Battery
           }
-          label={t("battery")}
+          label={t('battery')}
           value={vehicle.battery}
           unit="%"
           id="battery"
           status={getBatteryStatus(vehicle.battery)}
         />
-        <MetricCard
-          icon={Gauge}
-          label={t("speed")}
-          value={vehicle.speed}
-          unit=" km/h"
-        />
+        <MetricCard icon={Gauge} label={t('speed')} value={vehicle.speed} unit=" km/h" />
         <MetricCard
           icon={Thermometer}
-          label={t("temperature")}
+          label={t('temperature')}
           value={vehicle.temperature}
           unit="°C"
           status={getTempStatus(vehicle.temperature)}
         />
-        <MetricCard
-          icon={MapPin}
-          label={t("range")}
-          value={vehicle.range}
-          unit=" km"
-        />
+        <MetricCard icon={MapPin} label={t('range')} value={vehicle.range} unit=" km" />
         <MetricCard
           icon={CircleGauge}
-          label={t("tirePressure")}
+          label={t('tirePressure')}
           value={vehicle.tirePressure}
           unit=" psi"
           status={getTirePressureStatus(vehicle.tirePressure)}
         />
         <MetricCard
           icon={Wrench}
-          label={t("motorEfficiency")}
+          label={t('motorEfficiency')}
           value={vehicle.motorEfficiency}
           unit="%"
           status={getMotorEfficiencyStatus(vehicle.motorEfficiency)}
         />
         <MetricCard
           icon={Shield}
-          label={t("regenBraking")}
-          value={vehicle.regenBraking ? "Active" : "Inactive"}
+          label={t('regenBraking')}
+          value={vehicle.regenBraking ? 'Active' : 'Inactive'}
           unit=""
-          status={
-            vehicle.regenBraking ? MetricStatus.NORMAL : MetricStatus.WARNING
-          }
+          status={vehicle.regenBraking ? MetricStatus.NORMAL : MetricStatus.WARNING}
         />
         <MetricCard
           icon={Cable}
-          label={t("voltage")}
+          label={t('voltage')}
           value={vehicle.voltage}
           unit=" V"
-          status={
-            vehicle.voltage < 300 ? MetricStatus.WARNING : MetricStatus.NORMAL
-          }
+          status={vehicle.voltage < 300 ? MetricStatus.WARNING : MetricStatus.NORMAL}
         />
         <MetricCard
           icon={Zap}
-          label={t("current")}
+          label={t('current')}
           value={vehicle.current}
           unit=" A"
-          status={
-            vehicle.current > 120 ? MetricStatus.WARNING : MetricStatus.NORMAL
-          }
+          status={vehicle.current > 120 ? MetricStatus.WARNING : MetricStatus.NORMAL}
         />
         <MetricCard
           icon={Leaf}
-          label={t("power")}
+          label={t('power')}
           value={vehicle.power}
           unit=" kW"
-          status={
-            vehicle.power > 120 ? MetricStatus.WARNING : MetricStatus.NORMAL
-          }
+          status={vehicle.power > 120 ? MetricStatus.WARNING : MetricStatus.NORMAL}
         />
-        <MetricCard
-          icon={RulerDimensionLine}
-          label={t("odometer")}
-          value={vehicle.odometer}
-          unit=" km"
-        />
-        <MetricCard
-          icon={CloudCog}
-          label={t("softwareVersion")}
-          value={vehicle.softwareVersion}
-          unit=""
-        />
+        <MetricCard icon={RulerDimensionLine} label={t('odometer')} value={vehicle.odometer} unit=" km" />
+        <MetricCard icon={CloudCog} label={t('softwareVersion')} value={vehicle.softwareVersion} unit="" />
       </div>
 
       <div className="text-xs text-gray-500 dark:text-gray-400 flex items-center justify-between">

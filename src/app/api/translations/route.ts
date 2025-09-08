@@ -1,24 +1,16 @@
-import { translations } from "./translations";
-import { NextRequest, NextResponse } from "next/server";
+import {translations} from './translations';
+import {NextRequest} from 'next/server';
 
 export async function GET(request: NextRequest) {
-  const module = request.nextUrl.searchParams.get("module");
-  const locale = request.nextUrl.searchParams.get("locale");
+  const submodule = request.nextUrl.searchParams.get('submodule');
+  const locale = request.nextUrl.searchParams.get('locale');
 
-  if (
-    typeof module === "string" &&
-    typeof locale === "string" &&
-    module &&
-    locale
-  ) {
+  if (typeof submodule === 'string' && typeof locale === 'string' && submodule && locale) {
     const content = translations.find((t) => t.language === locale)?.content;
     if (content) {
-      return new Response(
-        JSON.stringify({ ...content.common, ...content[module] }),
-        { status: 200 }
-      );
+      return new Response(JSON.stringify({...content.common, ...content[submodule]}), {status: 200});
     }
   }
 
-  return new Response(null, { status: 404 });
+  return new Response(null, {status: 404});
 }

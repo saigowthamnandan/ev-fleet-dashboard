@@ -1,10 +1,9 @@
-import { configureStore } from "@reduxjs/toolkit";
-import alertSlice from "./alertsSlice";
+import {configureStore} from '@reduxjs/toolkit';
+import alertSlice from './alertsSlice';
 
 export const store = configureStore({
-  reducer: { alerts: alertSlice },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({ serializableCheck: false }),
+  reducer: {alerts: alertSlice},
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false}),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

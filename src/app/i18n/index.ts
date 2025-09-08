@@ -10,12 +10,10 @@ const initI18next = async (locale: string, ns: string) => {
     .use(
       resourcesToBackend(async (language: string, namespace: string) => {
         const response = await fetch(
-          `/api/translations/?locale=${language}&module=${
-            namespace === "translation" ? "common" : namespace
-          }`,
+          `/api/translations/?locale=${language}&submodule=${namespace === 'translation' ? 'common' : namespace}`,
           {
-            method: "GET",
-          }
+            method: 'GET',
+          },
         );
         const data = await response.json();
         return response.ok ? data : null;

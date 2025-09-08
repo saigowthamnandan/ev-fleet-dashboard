@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Alert } from "../utils/types";
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {Alert} from '../utils/types';
 
 type alertsState = {
   alerts: Alert[];
@@ -11,16 +11,14 @@ const initialState: alertsState = {
   dismissedAlertIds: [],
 };
 const alertsSlice = createSlice({
-  name: "alerts",
+  name: 'alerts',
   initialState,
   reducers: {
     addAlerts: (state, action: PayloadAction<Alert[]>) => {
       state.alerts = action.payload;
     },
     removeAlert: (state, action: PayloadAction<string>) => {
-      state.alerts = state.alerts.filter(
-        (alert) => alert.id !== action.payload
-      );
+      state.alerts = state.alerts.filter((alert) => alert.id !== action.payload);
       if (!state.dismissedAlertIds.includes(action.payload)) {
         state.dismissedAlertIds.push(action.payload);
       }
@@ -30,9 +28,7 @@ const alertsSlice = createSlice({
       state.dismissedAlertIds = [];
     },
     resetDismissedAlert: (state, action: PayloadAction<string>) => {
-      state.dismissedAlertIds = state.dismissedAlertIds.filter(
-        (id) => id !== action.payload
-      );
+      state.dismissedAlertIds = state.dismissedAlertIds.filter((id) => id !== action.payload);
     },
     resetAllDismissedAlerts: (state) => {
       state.dismissedAlertIds = [];
@@ -40,11 +36,5 @@ const alertsSlice = createSlice({
   },
 });
 
-export const {
-  addAlerts,
-  removeAlert,
-  clearAlerts,
-  resetDismissedAlert,
-  resetAllDismissedAlerts,
-} = alertsSlice.actions;
+export const {addAlerts, removeAlert, clearAlerts, resetDismissedAlert, resetAllDismissedAlerts} = alertsSlice.actions;
 export default alertsSlice.reducer;

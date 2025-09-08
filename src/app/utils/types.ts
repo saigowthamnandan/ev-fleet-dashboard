@@ -1,10 +1,4 @@
-import {
-  MetricStatus,
-  SortOrder,
-  VehicleSortBy,
-  VehicleStatus,
-  VehicleType,
-} from "./enums";
+import {MetricStatus, SortOrder, VehicleSortBy, VehicleStatus, VehicleType} from './enums';
 
 export type Vehicle = {
   id: string;

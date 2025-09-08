@@ -1,0 +1,10 @@
+{
+  "dataStreamingOff": "Datenstrom ist derzeit offline",
+  "criticalAlert": "Kritischer Alarm",
+  "lowBattery": "Niedrige Batterie",
+  "criticalBatteryLevel": "{{vehicleName}}: Kritische Batterielevel ({{batteryLevel}}%)",
+  "highTemperature": "{{vehicleName}}: Hohe Temperatur ({{temperature}}°C)",
+  "avgBattery": "Durchschnittliche Batterie",
+  "totalRange": "Gesamtreichweite",
+  "noActiveAlerts": "Keine aktiven Alarme"
+}

@@ -1,6 +1,6 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { IconVariants } from "@/app/utils/enums";
+'use client';
+import React, {useEffect, useState} from 'react';
+import {IconVariants} from '@/app/utils/enums';
 
 // Helper to get size based on variant or custom size
 const getSize = (variant: IconVariants, custom?: number) => {
@@ -34,20 +34,12 @@ export interface IconProps extends React.SVGProps<SVGSVGElement> {
   variant?: IconVariants;
 }
 
-const SvgLoad = ({
-  name,
-  width,
-  height,
-  className,
-  variant = width ? IconVariants.NONE : IconVariants.SMALL,
-  alt,
-  ...rest
-}: IconProps) => {
+const SvgLoad = ({name, width, height, className, variant = width ? IconVariants.NONE : IconVariants.SMALL, alt, ...rest}: IconProps) => {
   const [svgContent, setSvgContent] = useState<string | null>(null);
 
   useEffect(() => {
     if (!name) return;
-    fetch(`/` + name + ".svg")
+    fetch(`/` + name + '.svg')
       .then((res) => res.text())
       .then((text) => setSvgContent(text))
       .catch(() => setSvgContent(null));
@@ -64,7 +56,7 @@ const SvgLoad = ({
       aria-label={alt}
       viewBox="0 0 24 24"
       {...rest}
-      dangerouslySetInnerHTML={{ __html: svgContent }}
+      dangerouslySetInnerHTML={{__html: svgContent}}
     />
   );
 };

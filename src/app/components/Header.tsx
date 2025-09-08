@@ -1,38 +1,32 @@
-"use client";
-import { Bell, Wifi, WifiOff } from "lucide-react";
-import { useContext, useEffect } from "react";
-import PreferencesContext from "../utils/context/preferencesContext";
-import ThemeToggle from "./ThemeToggle";
-import Image from "next/image";
-import AlertsContext from "../utils/context/alertsContext";
-import { TFunction } from "i18next";
-import { useSelector } from "react-redux";
-import { Alert } from "../utils/types";
+'use client';
+import {Bell, Wifi, WifiOff} from 'lucide-react';
+import {useContext, useEffect} from 'react';
+import PreferencesContext from '../utils/context/preferencesContext';
+import ThemeToggle from './ThemeToggle';
+import Image from 'next/image';
+// import {TFunction} from 'i18next';
+import {useSelector} from 'react-redux';
+import {Alert} from '../utils/types';
 
-export default function Header({
-  translation: t,
-}: {
-  translation: TFunction<string, undefined>;
-}) {
-  const { preferences, setPreferences } = useContext(PreferencesContext);
-  const alerts = useSelector(
-    (state: { alerts: { alerts: Alert[] } }) => state.alerts.alerts
-  );
-  const { language, isOnline } = preferences;
+import {TFunction} from 'i18next';
+export default function Header({translation: t}: {translation: TFunction<string, undefined>}) {
+  const {preferences, setPreferences} = useContext(PreferencesContext);
+  const alerts = useSelector((state: {alerts: {alerts: Alert[]}}) => state.alerts.alerts);
+  const {language, isOnline} = preferences;
   useEffect(() => {
     const handleNetworkChange = (isOnline: boolean) => {
-      setPreferences({ ...preferences, isOnline });
+      setPreferences({...preferences, isOnline});
       if (isOnline) {
         // Show a toast or notification that the app is back online
         // Fetch latest data or perform any necessary actions
-        console.log("Back online");
+        console.log('Back online');
       }
     };
-    window.addEventListener("online", () => handleNetworkChange(true));
-    window.addEventListener("offline", () => handleNetworkChange(false));
+    window.addEventListener('online', () => handleNetworkChange(true));
+    window.addEventListener('offline', () => handleNetworkChange(false));
     return () => {
-      window.removeEventListener("online", () => handleNetworkChange(true));
-      window.removeEventListener("offline", () => handleNetworkChange(false));
+      window.removeEventListener('online', () => handleNetworkChange(true));
+      window.removeEventListener('offline', () => handleNetworkChange(false));
     };
   }, [navigator.onLine]);
 
@@ -56,31 +50,20 @@ export default function Header({
             <path d="M55.6122 17.9863C55.6122 21.2858 57.2839 22.8221 63.3791 22.8221C63.4869 22.8221 70.0355 23.0053 72.9186 22.5597V25.6501C69.0932 26.1148 63.3162 25.9399 63.2671 25.9399C55.2053 25.9399 51.9999 23.2732 51.9999 17.985C51.9999 12.6967 55.2066 10.0301 63.2671 10.0301C63.2998 10.0301 69.4319 9.93439 72.9186 10.4497V13.5893C70.0273 13.1437 63.3886 13.1478 63.3791 13.1478C57.2839 13.1478 55.6122 14.6855 55.6122 17.985V17.9863Z" />
             <path d="M123.483 18C123.483 12.463 127.299 10 135.858 10C144.416 10 148.231 12.463 148.231 18C148.231 23.537 144.415 26 135.858 26C127.3 26 123.483 23.537 123.483 18ZM144.574 18C144.574 14.5419 142.473 13.1191 135.858 13.1191C129.242 13.1191 127.096 14.5433 127.096 18C127.096 21.4567 129.242 22.8809 135.858 22.8809C142.473 22.8809 144.574 21.4581 144.574 18Z" />
           </svg> */}
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-            {t("dashboardTitle")}
-          </h1>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{t('dashboardTitle')}</h1>
         </div>
         <div className="flex items-center gap-1 md:gap-2">
           {/* Connection Status */}
           <button
-            onClick={() =>
-              setPreferences({ ...preferences, isOnline: !isOnline })
-            }
+            onClick={() => setPreferences({...preferences, isOnline: !isOnline})}
             data-testid="connection-toggle"
             className={`flex items-center gap-2 px-3 py-1 rounded-full text-sm font-medium ${
               isOnline
-                ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
-                : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200"
-            }`}
-          >
-            {isOnline ? (
-              <Wifi className="h-4 w-4" />
-            ) : (
-              <WifiOff className="h-4 w-4" />
-            )}
-            <span className="hidden md:block">
-              {isOnline ? t("online") : t("offline")}
-            </span>
+                ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
+                : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
+            }`}>
+            {isOnline ? <Wifi className="h-4 w-4" /> : <WifiOff className="h-4 w-4" />}
+            <span className="hidden md:block">{isOnline ? t('online') : t('offline')}</span>
           </button>
 
           {/* Language Toggle */}
@@ -88,11 +71,10 @@ export default function Header({
             onClick={() =>
               setPreferences({
                 ...preferences,
-                language: language === "en" ? "de" : "en",
+                language: language === 'en' ? 'de' : 'en',
               })
             }
-            className="px-3 py-1 rounded-md text-sm font-medium bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"
-          >
+            className="px-3 py-1 rounded-md text-sm font-medium bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600">
             {language.toUpperCase()}
           </button>
 
@@ -103,15 +85,14 @@ export default function Header({
           <div
             className="relative cursor-pointer"
             onClick={() => {
-              const alertsPanel = document.getElementById("alerts-panel");
+              const alertsPanel = document.getElementById('alerts-panel');
               if (alertsPanel) {
                 alertsPanel.scrollIntoView({
-                  behavior: "smooth",
-                  block: "center",
+                  behavior: 'smooth',
+                  block: 'center',
                 });
               }
-            }}
-          >
+            }}>
             <Bell className="h-6 w-6 text-gray-700 dark:text-gray-300" />
             {alerts.length > 0 && (
               <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
@@ -124,15 +105,10 @@ export default function Header({
 
       {/* Offline Alert */}
       {!isOnline && (
-        <div
-          className="mt-4 p-3 bg-yellow-100 dark:bg-yellow-900/20 border border-yellow-400 rounded-lg"
-          data-testid="offline-alert"
-        >
+        <div className="mt-4 p-3 bg-yellow-100 dark:bg-yellow-900/20 border border-yellow-400 rounded-lg" data-testid="offline-alert">
           <div className="flex items-center space-x-2">
             <WifiOff className="h-5 w-5 text-yellow-600" />
-            <span className="text-sm font-medium text-yellow-800 dark:text-yellow-200">
-              {t("dataStreamingOff")}
-            </span>
+            <span className="text-sm font-medium text-yellow-800 dark:text-yellow-200">{t('dataStreamingOff')}</span>
           </div>
         </div>
       )}

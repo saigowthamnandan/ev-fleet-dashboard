@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { createContext } from "react";
+import {createContext} from 'react';
 
 const PreferencesContext = createContext({
   preferences: {
-    language: "de",
+    language: 'de',
     isOnline: true,
   },
-  setPreferences: (preferences: { language: string; isOnline: boolean }) => {},
+  setPreferences: (preferences: {language: string; isOnline: boolean}) => {},
 });
 
 export default PreferencesContext;

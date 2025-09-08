@@ -1,5 +1,5 @@
-"use client";
-import { useEffect, useState } from "react";
+'use client';
+import {useEffect, useState} from 'react';
 
 export function useTranslation(lng: string, ns: string) {
   const [t, setT] = useState<(key: string) => string>((key: string) => key); // Fallback to key
@@ -8,17 +8,13 @@ export function useTranslation(lng: string, ns: string) {
   useEffect(() => {
     async function loadTranslations() {
       try {
-        const response = await fetch(
-          `/api/translations/?locale=${lng}&module=${
-            ns === "translation" ? "common" : ns
-          }`
-        );
+        const response = await fetch(`/api/translations/?locale=${lng}&submodule=${ns === 'translation' ? 'common' : ns}`);
         const translations = await response.json();
 
         setT(() => (key: string) => translations[key] || key);
         setIsLoaded(true);
       } catch (error) {
-        console.error("Failed to load translations:", error);
+        console.error('Failed to load translations:', error);
         setIsLoaded(true);
       }
     }
@@ -26,5 +22,5 @@ export function useTranslation(lng: string, ns: string) {
     loadTranslations();
   }, [lng, ns]);
 
-  return { t, isLoaded };
+  return {t, isLoaded};
 }
